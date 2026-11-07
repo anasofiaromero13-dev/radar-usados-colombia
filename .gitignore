@@ -1,0 +1,22 @@
+# Dependencias y compilación
+node_modules/
+web/dist/
+.vercel/
+
+# Configuración local y credenciales
+.env
+.env.*
+!.env.example
+
+# Datos originales y archivos generados
+storage/
+data/raw/
+data/built/
+*.csv
+*.xlsx
+*.xls
+
+# Archivos temporales
+*.log
+.DS_Store
+Thumbs.db
