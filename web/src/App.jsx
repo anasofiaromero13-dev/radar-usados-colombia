@@ -73,9 +73,9 @@ export default function App() {
   return (
     <div className="shell radar-shell">
       <aside className="side">
-        <div className="brand"><img src="/icon.svg" alt="" /><span>{appName}</span></div>
+        <div className="brand"><img src={import.meta.env.BASE_URL + 'icon.svg'} alt="" /><span>{appName}</span></div>
         <a className="powered" href="https://www.talera.co/" target="_blank" rel="noreferrer">
-          <span>Powered by</span><img src="/talera-logo.png" alt="Talera" />
+          <span>Powered by</span><img src={import.meta.env.BASE_URL + 'talera-logo.png'} alt="Talera" />
         </a>
         {tabs.map(([id, label, icon]) => (
           <button key={id} className={'navbtn' + (view === id ? ' on' : '')} onClick={() => navigate(id)}>
@@ -83,12 +83,12 @@ export default function App() {
           </button>
         ))}
         <div className="spacer" />
-        <button className="navbtn" type="button" onClick={logout}>
-          <Icon name="user" />Cerrar sesión
-        </button>
+        {import.meta.env.VITE_PUBLIC_DEMO !== '1' && <button className="navbtn" type="button" onClick={logout}>
+          <Icon name="user" />Cerrar sesión</button>}
         <div className="legal-foot"><a href="#/terminos">Términos de uso</a></div>
       </aside>
       <main className="main">
+        {import.meta.env.VITE_PUBLIC_DEMO === '1' && <p style={{ padding: '10px 24px', margin: 0, background: '#edf4ff' }}>Demo pública · Las tasaciones se guardan únicamente en este navegador.</p>}
         {logoutError && <p role="alert">{logoutError}</p>}
         {terms && <Terminos appName={appName} />}
         <div hidden={terms}><Usados view={view} navigate={navigate} /></div>
@@ -99,11 +99,13 @@ export default function App() {
             <Icon name={icon} />{label}
           </button>
         ))}
-        <button type="button" onClick={logout}><Icon name="user" />Cerrar sesión</button>
+        {import.meta.env.VITE_PUBLIC_DEMO !== '1' && <button type="button" onClick={logout}><Icon name="user" />Cerrar sesión</button>}
       </nav>
     </div>
   );
 }
+
+
 
 
 

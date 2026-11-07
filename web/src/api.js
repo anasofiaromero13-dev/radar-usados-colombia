@@ -1,4 +1,8 @@
 export async function api(path, { method = 'GET', body, form } = {}) {
+  if (import.meta.env.VITE_PUBLIC_DEMO === '1') {
+    const { publicApi } = await import('./pages-demo/runtime.js');
+    return publicApi(path, { method, body });
+  }
   const opts = { method, credentials: 'same-origin', headers: {} };
   if (form) opts.body = form;
   else if (body !== undefined) { opts.headers['Content-Type'] = 'application/json'; opts.body = JSON.stringify(body); }
@@ -60,3 +64,4 @@ export const csvDownload = (name, head, rows) => {
   const blob = new Blob(['﻿' + [head, ...rows].map((r) => r.map((v) => `"${String(v ?? '').replace(/"/g, '""')}"`).join(',')).join('\n')], { type: 'text/csv' });
   const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = name; a.click();
 };
+

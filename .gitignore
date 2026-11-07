@@ -20,3 +20,4 @@ data/built/
 *.log
 .DS_Store
 Thumbs.db
+web/public/demo-data/
